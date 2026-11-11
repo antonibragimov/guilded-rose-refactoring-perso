@@ -6,11 +6,13 @@ abstract class ItemRule {
     protected abstract void updateQualityAfterSellIn(Item item);
 
     public final void applyTo(Item item) {
-        updateQualityDaily(item);
-        item.sellIn = item.sellIn - 1;
+        if (!isLegendary()) {
+            updateQualityDaily(item);
+            item.sellIn = item.sellIn - 1;
 
-        if (item.sellIn < 0) {
-            updateQualityAfterSellIn(item);
+            if (item.sellIn < 0) {
+                updateQualityAfterSellIn(item);
+            }
         }
     }
 
@@ -25,5 +27,9 @@ abstract class ItemRule {
                 item.quality = Math.max(0, updatedQuality);
             }
         }
+    }
+
+    protected boolean isLegendary() {
+        return false;
     }
 }

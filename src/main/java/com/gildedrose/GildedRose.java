@@ -10,10 +10,6 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
 
-            if (isSulfuras(item.name)) {
-                continue;
-            }
-
             if (isAgedBrie(item.name)) {
                 ItemRule rule = new AgedBrieRule();
                 rule.applyTo(item);
@@ -22,6 +18,9 @@ class GildedRose {
                 rule.applyTo(item);
             } else if (isConjured(item.name)) {
                 ItemRule rule = new ConjuredRule();
+                rule.applyTo(item);
+            } else if (isSulfuras(item.name)) {
+                ItemRule rule = new SulfurasRule();
                 rule.applyTo(item);
             } else {
                 ItemRule rule = new NormalRule();
