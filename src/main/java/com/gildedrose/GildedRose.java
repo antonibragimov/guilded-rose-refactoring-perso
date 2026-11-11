@@ -57,11 +57,10 @@ class GildedRose {
     }
 
     private void applyConjuredRule(Item item) {
+        changeQualityBy(item, -2);
         item.sellIn = item.sellIn - 1;
-        if (item.sellIn >= 0) {
+        if (item.sellIn < 0) {
             changeQualityBy(item, -2);
-        } else {
-            changeQualityBy(item, -4);
         }
     }
 
