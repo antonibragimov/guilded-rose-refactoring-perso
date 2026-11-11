@@ -15,37 +15,53 @@ class GildedRose {
             }
 
             if (isAgedBrie(item.name)) {
-                changeQualityBy(item, 1);
-                item.sellIn = item.sellIn - 1;
-                if (item.sellIn < 0) {
-                    changeQualityBy(item, 1);
-                }
+                applyAgedBrieRule(item);
             } else if (isBackstagePass(item.name)) {
-                changeQualityBy(item, 1);
-                if (item.sellIn < 11) {
-                    changeQualityBy(item, 1);
-                }
-                if (item.sellIn < 6) {
-                    changeQualityBy(item, 1);
-                }
-                item.sellIn = item.sellIn - 1;
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                }
+                applyBackstageRule(item);
             } else if (isConjured(item.name)) {
-                item.sellIn = item.sellIn - 1;
-                if (item.sellIn >= 0) {
-                    changeQualityBy(item, -2);
-                } else {
-                    changeQualityBy(item, -4);
-                }
+                applyConjuredRule(item);
             } else {
-                changeQualityBy(item, -1);
-                item.sellIn = item.sellIn - 1;
-                if (item.sellIn < 0) {
-                    changeQualityBy(item, -1);
-                }
+                applyNormalRule(item);
             }
+        }
+    }
+
+    private void applyNormalRule(Item item) {
+        changeQualityBy(item, -1);
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            changeQualityBy(item, -1);
+        }
+    }
+
+    private void applyAgedBrieRule(Item item) {
+        changeQualityBy(item, 1);
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            changeQualityBy(item, 1);
+        }
+    }
+
+    private void applyBackstageRule(Item item) {
+        changeQualityBy(item, 1);
+        if (item.sellIn < 11) {
+            changeQualityBy(item, 1);
+        }
+        if (item.sellIn < 6) {
+            changeQualityBy(item, 1);
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    private void applyConjuredRule(Item item) {
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn >= 0) {
+            changeQualityBy(item, -2);
+        } else {
+            changeQualityBy(item, -4);
         }
     }
 
