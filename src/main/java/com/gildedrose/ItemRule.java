@@ -2,6 +2,9 @@ package com.gildedrose;
 
 abstract class ItemRule {
 
+    protected static final int MIN_QUALITY = 0;
+    protected static final int MAX_QUALITY = 50;
+
     protected abstract void updateQualityDaily(Item item);
     protected abstract void updateQualityAfterSellIn(Item item);
 
@@ -19,12 +22,12 @@ abstract class ItemRule {
     protected void changeQualityBy(Item item, int step) {
         int updatedQuality = item.quality + step;
         if (step > 0) {
-            if (item.quality < 50) {
-                item.quality = Math.min(50, updatedQuality);
+            if (item.quality < MAX_QUALITY) {
+                item.quality = Math.min(MAX_QUALITY, updatedQuality);
             }
         } else {
-            if (item.quality > 0) {
-                item.quality = Math.max(0, updatedQuality);
+            if (item.quality > MIN_QUALITY) {
+                item.quality = Math.max(MIN_QUALITY, updatedQuality);
             }
         }
     }
