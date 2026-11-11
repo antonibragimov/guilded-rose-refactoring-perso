@@ -1,7 +1,5 @@
 package com.gildedrose;
 
-import static com.gildedrose.ItemRule.changeQualityBy;
-
 class GildedRose {
     Item[] items;
 
@@ -23,19 +21,12 @@ class GildedRose {
                 ItemRule rule = new BackstagePassRule();
                 rule.applyTo(item);
             } else if (isConjured(item.name)) {
-                applyConjuredRule(item);
+                ItemRule rule = new ConjuredRule();
+                rule.applyTo(item);
             } else {
                 ItemRule rule = new NormalRule();
                 rule.applyTo(item);
             }
-        }
-    }
-
-    private void applyConjuredRule(Item item) {
-        changeQualityBy(item, -2);
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            changeQualityBy(item, -2);
         }
     }
 
