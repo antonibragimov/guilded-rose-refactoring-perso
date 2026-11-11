@@ -14,7 +14,7 @@ abstract class ItemRule {
         }
     }
 
-    public static void changeQualityBy(Item item, int step) {
+    protected void changeQualityBy(Item item, int step) {
         int updatedQuality = item.quality + step;
         if (step > 0) {
             if (item.quality < 50) {
