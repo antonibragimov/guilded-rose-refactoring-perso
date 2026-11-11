@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import static com.gildedrose.ItemRule.changeQualityBy;
+
 class GildedRose {
     Item[] items;
 
@@ -21,16 +23,9 @@ class GildedRose {
             } else if (isConjured(item.name)) {
                 applyConjuredRule(item);
             } else {
-                applyNormalRule(item);
+                ItemRule rule = new NormalRule();
+                rule.applyTo(item);
             }
-        }
-    }
-
-    private void applyNormalRule(Item item) {
-        changeQualityBy(item, -1);
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            changeQualityBy(item, -1);
         }
     }
 
@@ -61,19 +56,6 @@ class GildedRose {
         item.sellIn = item.sellIn - 1;
         if (item.sellIn < 0) {
             changeQualityBy(item, -2);
-        }
-    }
-
-    private static void changeQualityBy(Item item, int step) {
-        int updatedQuality = item.quality + step;
-        if (step > 0) {
-            if (item.quality < 50) {
-                item.quality = Math.min(50, updatedQuality);
-            }
-        } else {
-            if (item.quality > 0) {
-                item.quality = Math.max(0, updatedQuality);
-            }
         }
     }
 
