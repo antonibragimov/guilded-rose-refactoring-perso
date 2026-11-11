@@ -20,27 +20,14 @@ class GildedRose {
                 ItemRule rule = new AgedBrieRule();
                 rule.applyTo(item);
             } else if (isBackstagePass(item.name)) {
-                applyBackstageRule(item);
+                ItemRule rule = new BackstagePassRule();
+                rule.applyTo(item);
             } else if (isConjured(item.name)) {
                 applyConjuredRule(item);
             } else {
                 ItemRule rule = new NormalRule();
                 rule.applyTo(item);
             }
-        }
-    }
-
-    private void applyBackstageRule(Item item) {
-        changeQualityBy(item, 1);
-        if (item.sellIn < 11) {
-            changeQualityBy(item, 1);
-        }
-        if (item.sellIn < 6) {
-            changeQualityBy(item, 1);
-        }
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            item.quality = 0;
         }
     }
 
