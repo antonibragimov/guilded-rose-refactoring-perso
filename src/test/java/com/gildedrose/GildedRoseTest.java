@@ -106,6 +106,21 @@ class GildedRoseTest {
         exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
     }
 
+    @Test
+    void testNormalItem_degradesByOne_from50() {
+        // Setup
+        String itemName = "item";
+        int sellInInit = 10;
+
+        int sellInExpected = 9;
+        int qualityExpected = 49;
+
+        Item item = new Item(itemName, sellInInit, COMMON_MAX_QUALITY);
+
+        // Exercise & Verify
+        exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
+    }
+
     /*
      * Aged Brie
      */
@@ -168,6 +183,22 @@ class GildedRoseTest {
 
         // Exercise & Verify
         exerciseVerifyItem(item, itemName, sellInExpected, COMMON_MAX_QUALITY);
+    }
+
+    @Test
+    void testAgedBrie_increasesByOne_from0() {
+        // Setup
+        String itemName = AGED_BRIE;
+        int sellInInit = 10;
+        int qualityInit = 0;
+
+        int sellInExpected = 9;
+        int qualityExpected = 1;
+
+        Item item = new Item(itemName, sellInInit, qualityInit);
+
+        // Exercise & Verify
+        exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
     }
 
     /*
