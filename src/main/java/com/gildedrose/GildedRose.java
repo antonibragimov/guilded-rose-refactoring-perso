@@ -32,6 +32,13 @@ class GildedRose {
                 if (item.sellIn < 0) {
                     item.quality = 0;
                 }
+            } else if (isConjured(item.name)) {
+                item.sellIn = item.sellIn - 1;
+                if (item.sellIn >= 0) {
+                    changeQualityBy(item, -2);
+                } else {
+                    changeQualityBy(item, -4);
+                }
             } else {
                 changeQualityBy(item, -1);
                 item.sellIn = item.sellIn - 1;
@@ -65,5 +72,9 @@ class GildedRose {
 
     private static boolean isBackstagePass(String itemName) {
         return itemName.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
+    private static boolean isConjured(String itemName) {
+        return itemName.startsWith("Conjured");
     }
 }

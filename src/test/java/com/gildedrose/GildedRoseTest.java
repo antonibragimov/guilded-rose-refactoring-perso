@@ -10,6 +10,7 @@ class GildedRoseTest {
     private static final String AGED_BRIE = "Aged Brie";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String CONJURED = "Conjured Mana Cake";
 
     private static final int SULFURAS_QUALITY = 80;
     private static final int COMMON_MAX_QUALITY = 50;
@@ -386,6 +387,54 @@ class GildedRoseTest {
 
         int sellInExpected = 10;
         int qualityExpected = 21;
+
+        Item item = new Item(itemName, sellInInit, qualityInit);
+
+        // Exercise & Verify
+        exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
+    }
+
+    @Test
+    void testConjured_degradesByTwo() {
+        // Setup
+        String itemName = CONJURED;
+        int sellInInit = 13;
+        int qualityInit = 20;
+
+        int sellInExpected = 12;
+        int qualityExpected = 18;
+
+        Item item = new Item(itemName, sellInInit, qualityInit);
+
+        // Exercise & Verify
+        exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
+    }
+
+    @Test
+    void testConjured_qualityNeverNegative() {
+        // Setup
+        String itemName = CONJURED;
+        int sellInInit = 10;
+        int qualityInit = 1;
+
+        int sellInExpected = 9;
+        int qualityExpected = 0;
+
+        Item item = new Item(itemName, sellInInit, qualityInit);
+
+        // Exercise & Verify
+        exerciseVerifyItem(item, itemName, sellInExpected, qualityExpected);
+    }
+
+    @Test
+    void testConjured_degradesByFourAfterSellIn() {
+        // Setup
+        String itemName = CONJURED;
+        int sellInInit = 0;
+        int qualityInit = 10;
+
+        int sellInExpected = -1;
+        int qualityExpected = 6;
 
         Item item = new Item(itemName, sellInInit, qualityInit);
 
