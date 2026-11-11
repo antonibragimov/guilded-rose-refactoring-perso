@@ -15,42 +15,43 @@ class GildedRose {
             }
 
             if (isAgedBrie(item.name)) {
-                increaseQualityByOne(item);
+                changeQualityBy(item, 1);
                 item.sellIn = item.sellIn - 1;
                 if (item.sellIn < 0) {
-                    increaseQualityByOne(item);
+                    changeQualityBy(item, 1);
                 }
             } else if (isBackstagePass(item.name)) {
-                increaseQualityByOne(item);
+                changeQualityBy(item, 1);
                 if (item.sellIn < 11) {
-                    increaseQualityByOne(item);
+                    changeQualityBy(item, 1);
                 }
                 if (item.sellIn < 6) {
-                    increaseQualityByOne(item);
+                    changeQualityBy(item, 1);
                 }
                 item.sellIn = item.sellIn - 1;
                 if (item.sellIn < 0) {
                     item.quality = 0;
                 }
             } else {
-                decreaseQualityByOne(item);
+                changeQualityBy(item, -1);
                 item.sellIn = item.sellIn - 1;
                 if (item.sellIn < 0) {
-                    decreaseQualityByOne(item);
+                    changeQualityBy(item, -1);
                 }
             }
         }
     }
 
-    private static void decreaseQualityByOne(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
-    }
-
-    private static void increaseQualityByOne(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
+    private static void changeQualityBy(Item item, int step) {
+        int updatedQuality = item.quality + step;
+        if (step > 0) {
+            if (item.quality < 50) {
+                item.quality = Math.min(50, updatedQuality);
+            }
+        } else {
+            if (item.quality > 0) {
+                item.quality = Math.max(0, updatedQuality);
+            }
         }
     }
 
