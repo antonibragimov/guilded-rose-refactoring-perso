@@ -17,7 +17,8 @@ class GildedRose {
             }
 
             if (isAgedBrie(item.name)) {
-                applyAgedBrieRule(item);
+                ItemRule rule = new AgedBrieRule();
+                rule.applyTo(item);
             } else if (isBackstagePass(item.name)) {
                 applyBackstageRule(item);
             } else if (isConjured(item.name)) {
@@ -26,14 +27,6 @@ class GildedRose {
                 ItemRule rule = new NormalRule();
                 rule.applyTo(item);
             }
-        }
-    }
-
-    private void applyAgedBrieRule(Item item) {
-        changeQualityBy(item, 1);
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            changeQualityBy(item, 1);
         }
     }
 
