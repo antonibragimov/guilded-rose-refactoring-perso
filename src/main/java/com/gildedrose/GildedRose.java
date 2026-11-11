@@ -14,13 +14,12 @@ class GildedRose {
                 continue;
             }
 
-            if (!item.name.equals("Aged Brie")
-                && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!isAgedBrie(item.name) && !isBackstagePass(item.name)) {
                 decreaseQualityByOne(item);
             } else {
                 increaseQualityByOne(item);
 
-                if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (isBackstagePass(item.name)) {
                     if (item.sellIn < 11) {
                         increaseQualityByOne(item);
                     }
@@ -34,8 +33,8 @@ class GildedRose {
             item.sellIn = item.sellIn - 1;
 
             if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (!isAgedBrie(item.name)) {
+                    if (!isBackstagePass(item.name)) {
                         decreaseQualityByOne(item);
                     } else {
                         item.quality = 0;
@@ -61,5 +60,13 @@ class GildedRose {
 
     private static boolean isSulfuras(String itemName) {
         return itemName.equals("Sulfuras, Hand of Ragnaros");
+    }
+
+    private static boolean isAgedBrie(String itemName) {
+        return itemName.equals("Aged Brie");
+    }
+
+    private static boolean isBackstagePass(String itemName) {
+        return itemName.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 }
