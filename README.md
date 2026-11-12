@@ -1,30 +1,25 @@
-# Gilded Rose starting position in Java
+# Gilded Rose refactoring
 
-## Run the TextTest Fixture from Command-Line
+Objectif : refactorer le code existant, puis ajouter les objets "Conjured" sans modifier la classe `Item`.
 
-```
-./gradlew -q text
-```
+La spécification se trouve dans [GildedRoseRequirements_fr.md](GildedRoseRequirements_fr.md).
 
-### Specify Number of Days
-
-For e.g. 10 days:
+## Lancer les tests
 
 ```
-./gradlew -q text --args 10
+./mvnw clean test
 ```
 
-You should make sure the gradle commands shown above work when you execute them in a terminal before trying to use TextTest (see below).
+## Démarche
 
+1. Filet de sécurité : tests de caractérisation sur le comportement existant.
+2. Refactoring de `updateQuality`, un commit par changement : à chaque étape, les tests passent.
+3. Ajout de Conjured en Test-Driven Development.
+4. Template Method et Simple Factory : une classe de règle par type d'objet.
 
-## Run the TextTest approval test that comes with this project
+## Choix
 
-There are instructions in the [TextTest Readme](../texttests/README.md) for setting up TextTest. What's unusual for the Java version is there are two executables listed in [config.gr](../texttests/config.gr) for Java. The first uses Gradle wrapped in a python script. Uncomment these lines to use it:
-
-    executable:${TEXTTEST_HOME}/Java/texttest_rig.py
-    interpreter:python
-
-The other relies on your CLASSPATH being set correctly in [environment.gr](../texttests/environment.gr). Uncomment these lines to use it instead:
-
-    executable:com.gildedrose.TexttestFixture
-    interpreter:java
+- `Item` n'est pas modifié, comme l'exige la spécification.
+- Sulfuras se base sur `isLegendary()` : quand elle renvoie `true`, `applyTo` bloque toute modification.
+- Les règles n'ont pas d'état : la factory partage une seule instance par type.
+- Conjured est reconnu par le début du nom, les autres objets par leur nom exact.
